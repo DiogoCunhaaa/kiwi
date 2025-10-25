@@ -10,8 +10,31 @@
 
     <ul id="lista_usuarios"></ul>
 
+    <input type="text" id="nome_usuario" placeholder="Nome" required />
+    <input type="email" id="email_usuario" placeholder="Email" required />
+    <button onclick="adicionarUsuario()">Adicionar</button>
+
     <script>
       const API_URL = "http://localhost:3333";
+
+      async function adicionarUsuario() {
+        const nome = document.getElementById("nome_usuario").value;
+        const email = document.getElementById("email_usuario").value;
+
+        const res = await fetch(`${API_URL}/users/create`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nome_usuario: nome,
+            email_usuario: email,
+          }),
+        });
+
+        const resultado = await res.json();
+        alert(resultado.message || resultado.error);
+
+        carregarUsuarios();
+      }
 
       async function carregarUsuarios() {
         const res = await fetch(`${API_URL}/users/`);
