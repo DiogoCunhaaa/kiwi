@@ -43,8 +43,29 @@
 
     <hr />
 
+    <h2>Deletar</h2>
     <input type="number" id="id_tarefa_delete" placeholder="Deletar" />
     <button onclick="deletarTarefa()">Deletar</button>
+
+    <hr />
+
+    <h2>Editar</h2>
+    <input type="number" id="id_tarefa_edit" placeholder="Id" required />
+    <input
+      type="text"
+      id="descricao_tarefa_edit"
+      placeholder="Descrição"
+      required
+    />
+    <input type="text" id="setor_tarefa_edit" placeholder="Setor" required />
+    <input
+      type="text"
+      id="prioridade_tarefa_edit"
+      placeholder="Prioridade"
+      required
+    />
+    <input type="text" id="status_tarefa_edit" placeholder="Status" required />
+    <button onclick="editarTarefa()">Editar</button>
 
     <script>
       const API_URL = "http://localhost:3333";
@@ -97,6 +118,25 @@
         const resultado = await res.json();
         alert(resultado.message || resultado.error);
         carregarTarefas();
+      }
+
+      async function editarTarefa() {
+        const id_tarefa = document.getElementById("id_tarefa_edit").value;
+        const descricao = document.getElementById("descricao_tarefa_edit").value;
+        const setor = document.getElementById("setor_tarefa_edit").value;
+        const prioridade = document.getElementById("prioridade_tarefa_edit").value;
+        const status = document.getElementById("status_tarefa_edit").value;
+
+        const res = await fetch(`${API_URL}/tasks/edit/${id_tarefa}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            descricao_tarefa: descricao,
+            setor_tarefa: setor,
+            prioridade_tarefa: prioridade,
+            status_tarefa: status,
+          }),
+        });
       }
 
       carregarTarefas();

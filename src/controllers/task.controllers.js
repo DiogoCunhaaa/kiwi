@@ -2,6 +2,7 @@ import {
   getAllTasks,
   insertTask,
   deleteTaskById,
+  editTaskById
 } from "../models/task.models.js";
 
 export const listTasks = async (req, res) => {

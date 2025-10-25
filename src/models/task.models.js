@@ -34,3 +34,13 @@ export const deleteTaskById = async (id) => {
   ]);
   return result.affectedRows;
 };
+
+export const editTaskById = async (id, task) => {
+  const { descricao_tarefa, setor_tarefa, prioridade_tarefa, status_tarefa } =
+    task;
+
+  const [result] = await db.query(
+    "UPDATE tarefa SET descricao_tarefa = ?, setor_tarefa = ?, prioridade_tarefa = ?, status_tarefa = ? WHERE id_tarefa = ?",
+    [descricao_tarefa, setor_tarefa, prioridade_tarefa, status_tarefa, id]
+  );
+};
