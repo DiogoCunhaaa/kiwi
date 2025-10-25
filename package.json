@@ -1,0 +1,24 @@
+{
+  "name": "sap",
+  "version": "1.0.0",
+  "description": "Simulado de exercício para o saep",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "test",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DiogoCunhaaa/kiwi.git"
+  },
+  "author": "Diogo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DiogoCunhaaa/kiwi/issues"
+  },
+  "homepage": "https://github.com/DiogoCunhaaa/kiwi#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
