@@ -1,5 +1,7 @@
 body {
   font-family: "Segoe UI", Arial, sans-serif;
+  padding: 0px;
+  margin: 0px;
 }
 
 .azul { background-color: #0056b3; }

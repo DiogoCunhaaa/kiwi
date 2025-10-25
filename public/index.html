@@ -3,11 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Usuários</title>
   </head>
   <body>
-    <h1>Usuários</h1>
+    <nav class="azul">
+      <ul
+        style="list-style: none; display: flex; justify-content: space-evenly; padding: 25px; margin: 0px"
+      >
+        <a href="index.html" style="text-decoration: none" class="branco"
+          ><li>Gerenciamento de usuário</li></a
+        >
+        <a href="turmas.html" style="text-decoration: none" class="branco"
+          ><li>Gerenciamento de tarefas</li></a
+        >
+      </ul>
+    </nav>
 
+    <h1>Usuários</h1>
     <ul id="lista_usuarios"></ul>
 
     <input type="text" id="nome_usuario" placeholder="Nome" required />
