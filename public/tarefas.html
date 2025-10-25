@@ -41,6 +41,11 @@
     <input type="text" id="status_tarefa" placeholder="Status" required />
     <button onclick="adicionarTarefa()">Adicionar</button>
 
+    <hr />
+
+    <input type="number" id="id_tarefa_delete" placeholder="Deletar" />
+    <button onclick="deletarTarefa()">Deletar</button>
+
     <script>
       const API_URL = "http://localhost:3333";
 
@@ -80,6 +85,18 @@
           li.textContent = `${u.id_tarefa} - ${u.id_usuario} - ${u.descricao_tarefa} - ${u.setor_tarefa} - ${u.cadastro_tarefa} - ${u.prioridade_tarefa} - ${u.status_tarefa}`;
           lista.appendChild(li);
         });
+      }
+
+      async function deletarTarefa() {
+        const id = document.getElementById("id_tarefa_delete").value;
+
+        const res = await fetch(`${API_URL}/tasks/delete/${id}`, {
+          method: "DELETE",
+        });
+
+        const resultado = await res.json();
+        alert(resultado.message || resultado.error);
+        carregarTarefas();
       }
 
       carregarTarefas();

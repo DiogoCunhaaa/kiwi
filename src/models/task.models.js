@@ -27,3 +27,10 @@ export const insertTask = async (task) => {
 
   return result.insertId;
 };
+
+export const deleteTaskById = async (id) => {
+  const [result] = await db.query("DELETE FROM tarefa WHERE id_tarefa = ?", [
+    id,
+  ]);
+  return result.affectedRows;
+};
