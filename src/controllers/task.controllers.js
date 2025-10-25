@@ -1,0 +1,46 @@
+import { getAllTasks, insertTask } from "../models/task.models.js";
+
+export const listTasks = async (req, res) => {
+  try {
+    const tarefas = await getAllTasks();
+    res.json(tarefas);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erro no servidor" });
+  }
+};
+
+export const createTask = async (req, res) => {
+  try {
+    const {
+      id_usuario_tarefa,
+      descricao_tarefa,
+      setor_tarefa,
+      prioridade_tarefa,
+      status_tarefa,
+    } = req.body;
+
+    if (
+      !id_usuario_tarefa ||
+      !descricao_tarefa ||
+      !setor_tarefa ||
+      !prioridade_tarefa ||
+      !status_tarefa
+    ) {
+      return res.status(400).json({ error: "Preencha todos os campos" });
+    }
+
+    const id = await insertTask({
+      id_usuario_tarefa,
+      descricao_tarefa,
+      setor_tarefa,
+      prioridade_tarefa,
+      status_tarefa,
+    });
+
+    res.status(200).json({ message: "Tarefa criada com sucesso", id });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erro no servidor" });
+  }
+};

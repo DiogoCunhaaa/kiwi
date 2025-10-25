@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Usuários</title>
+  </head>
+  <body>
+    <nav class="azul">
+      <ul
+        style="
+          list-style: none;
+          display: flex;
+          justify-content: space-evenly;
+          padding: 25px;
+          margin: 0px;
+        "
+      >
+        <a href="index.html" style="text-decoration: none" class="branco"
+          ><li>Gerenciamento de usuário</li></a
+        >
+        <a href="tarefas.html" style="text-decoration: none" class="branco"
+          ><li>Gerenciamento de tarefas</li></a
+        >
+      </ul>
+    </nav>
+
+    <h1>Tarefas</h1>
+    <ul id="lista_tarefas"></ul>
+
+    <input type="number" id="id_usuario_tarefa" placeholder="Id" required />
+    <input type="text" id="descricao_tarefa" placeholder="Descrição" required />
+    <input type="text" id="setor_tarefa" placeholder="Setor" required />
+    <input
+      type="text"
+      id="prioridade_tarefa"
+      placeholder="Prioridade"
+      required
+    />
+    <input type="text" id="status_tarefa" placeholder="Status" required />
+    <button onclick="adicionarTarefa()">Adicionar</button>
+
+    <script>
+      const API_URL = "http://localhost:3333";
+
+      async function adicionarTarefa() {
+        const id_usuario = document.getElementById("id_usuario_tarefa").value;
+        const descricao = document.getElementById("descricao_tarefa").value;
+        const setor = document.getElementById("setor_tarefa").value;
+        const prioridade = document.getElementById("prioridade_tarefa").value;
+        const status = document.getElementById("status_tarefa").value;
+
+        const res = await fetch(`${API_URL}/tasks/create`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id_usuario_tarefa: id_usuario,
+            descricao_tarefa: descricao,
+            setor_tarefa: setor,
+            prioridade_tarefa: prioridade,
+            status_tarefa: status,
+          }),
+        });
+
+        const resultado = await res.json();
+        alert(resultado.message || resultado.error);
+
+        carregarTarefas();
+      }
+
+      async function carregarTarefas() {
+        const res = await fetch(`${API_URL}/tasks/`);
+        const dados = await res.json();
+
+        const lista = document.getElementById("lista_tarefas");
+        lista.innerHTML = "";
+        dados.forEach((u) => {
+          const li = document.createElement("li");
+          li.textContent = `${u.id_tarefa} - ${u.id_usuario} - ${u.descricao_tarefa} - ${u.setor_tarefa} - ${u.cadastro_tarefa} - ${u.prioridade_tarefa} - ${u.status_tarefa}`;
+          lista.appendChild(li);
+        });
+      }
+
+      carregarTarefas();
+    </script>
+  </body>
+</html>
